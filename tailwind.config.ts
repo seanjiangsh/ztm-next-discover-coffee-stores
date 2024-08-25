@@ -8,10 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-ibm-plex-sans)"],
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        gradient: "url('/static/background.png')",
+      },
+      colors: {
+        purple: {
+          951: "rgba(79, 70, 229, 1)",
+        },
+        gray: {
+          950: "hsla(0, 0%, 100%, 0.7);",
+          951: "hsla(0, 0%, 100%, 0.4);",
+          952: "#373b64",
+        },
       },
     },
   },
