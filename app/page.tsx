@@ -1,3 +1,5 @@
+import { fetchCoffeeStores } from "@/lib/coffee-stores";
+
 import Banner from "@/components/banner.client";
 import Cards from "@/components/cards.server";
 
@@ -34,7 +36,13 @@ const dummyCoffeeStores = [
   },
 ];
 
-export default function Home() {
+async function getData() {
+  return await fetchCoffeeStores();
+}
+export default async function Home() {
+  const { features } = await getData();
+  console.log(features);
+
   return (
     <div className="mb-56">
       <main className="mx-auto mt-10 max-w-6xl px-4">
