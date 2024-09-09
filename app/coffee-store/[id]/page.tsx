@@ -1,12 +1,16 @@
 import React from "react";
 import Link from "next/link";
 
+import { fetchCoffeeStore } from "@/lib/coffee-stores";
+
 type PageProps = {
   params: { id: string };
 };
 
-export default function Page(props: PageProps) {
+export default async function Page(props: PageProps) {
   const { id } = props.params;
+  const coffeeStore = await fetchCoffeeStore(id);
+  console.log(coffeeStore);
 
   return (
     <div className="h-full pb-80">

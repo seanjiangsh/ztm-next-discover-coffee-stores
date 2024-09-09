@@ -1,6 +1,7 @@
 export type MapboxType = {
   id: string;
-  properties: { name: string; full_address: string };
+  properties: { address: string };
+  text: string;
 };
 
 export type CoffeeStoreType = {

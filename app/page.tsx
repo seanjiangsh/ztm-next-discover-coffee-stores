@@ -3,11 +3,8 @@ import { fetchCoffeeStores } from "@/lib/coffee-stores";
 import Banner from "@/components/banner.client";
 import Cards from "@/components/cards.server";
 
-async function getData() {
-  return await fetchCoffeeStores();
-}
 export default async function Home() {
-  const coffeeStores = await getData();
+  const coffeeStores = await fetchCoffeeStores();
   // console.log(coffeeStores);
 
   return (
