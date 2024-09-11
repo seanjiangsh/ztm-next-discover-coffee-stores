@@ -3,9 +3,6 @@ import Image from "next/image";
 
 import { fetchCoffeeStore, fetchCoffeeStores } from "@/lib/coffee-stores";
 
-const altImgUrl =
-  "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80";
-
 export async function generateStaticParams() {
   const coffeeStores = await fetchCoffeeStores();
   return coffeeStores.map(({ id }) => ({ id }));
@@ -18,8 +15,8 @@ type PageProps = {
 export default async function Page(props: PageProps) {
   const { id } = props.params;
   const coffeeStore = await fetchCoffeeStore(id);
-  const { name = "", address = "", imgUrl = altImgUrl } = coffeeStore || {};
-  // console.log(coffeeStore);
+  const { name = "", address = "", imgUrl = "" } = coffeeStore || {};
+  console.log(coffeeStore);
 
   return (
     <div className="h-full pb-80">
