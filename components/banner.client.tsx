@@ -1,9 +1,13 @@
 "use client";
 
-import React from "react";
+import { MouseEventHandler } from "react";
 
-export default function Banner() {
-  const handleOnClick = () => {};
+type BannerProps = {
+  viewStoresNearbyClick: MouseEventHandler<HTMLButtonElement>;
+};
+
+export default function Banner(props: BannerProps) {
+  const { viewStoresNearbyClick } = props;
 
   return (
     <div className="mb-12 grid lg:mb-24 lg:grid-cols-2">
@@ -16,7 +20,7 @@ export default function Banner() {
           Discover your local coffee shops!
         </p>
         <div className="mt-12">
-          <button onClick={handleOnClick}>View stores nearby</button>
+          <button onClick={viewStoresNearbyClick}>View stores nearby</button>
         </div>
       </div>
     </div>
