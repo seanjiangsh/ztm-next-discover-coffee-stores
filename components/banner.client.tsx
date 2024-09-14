@@ -2,12 +2,16 @@
 
 import { MouseEventHandler } from "react";
 
+type StoresNearbyButtonProps = {
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  text: string;
+};
 type BannerProps = {
-  viewStoresNearbyClick: MouseEventHandler<HTMLButtonElement>;
+  storesNearbyButtonProps: StoresNearbyButtonProps;
 };
 
 export default function Banner(props: BannerProps) {
-  const { viewStoresNearbyClick } = props;
+  const { onClick, text } = props.storesNearbyButtonProps;
 
   return (
     <div className="mb-12 grid lg:mb-24 lg:grid-cols-2">
@@ -20,7 +24,7 @@ export default function Banner(props: BannerProps) {
           Discover your local coffee shops!
         </p>
         <div className="mt-12">
-          <button onClick={viewStoresNearbyClick}>View stores nearby</button>
+          <button onClick={onClick}>{text}</button>
         </div>
       </div>
     </div>

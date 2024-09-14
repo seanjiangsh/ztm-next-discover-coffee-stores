@@ -7,13 +7,15 @@ export default function NearbyCoffeeStores() {
   const { handleTrackLocation, isFindingLocation, longLat, locationErrorMsg } =
     useTrackLocation();
 
-  const viewStoresNearbyClick = () => {
-    handleTrackLocation();
+  const storesNearbyButtonProps = {
+    onClick: () => handleTrackLocation(),
+    text: isFindingLocation ? "Locating..." : "View stores nearby",
   };
 
   return (
     <div>
-      <Banner viewStoresNearbyClick={viewStoresNearbyClick} />
+      <Banner storesNearbyButtonProps={storesNearbyButtonProps} />
+      {locationErrorMsg && <p>Error: {locationErrorMsg}</p>}
     </div>
   );
 }
