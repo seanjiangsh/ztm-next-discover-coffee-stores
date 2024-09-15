@@ -4,8 +4,10 @@ import { MapboxType, CoffeeStoreType } from "@/types";
 
 const { MAPBOX_API_KEY, UNSPALSH_API_KEY } = process.env;
 
-if (!MAPBOX_API_KEY || !UNSPALSH_API_KEY)
+if (!MAPBOX_API_KEY || !UNSPALSH_API_KEY) {
+  console.log({ MAPBOX_API_KEY, UNSPALSH_API_KEY });
   throw new Error("Missing environment variables");
+}
 
 const unsplashApi = createApi({ accessKey: UNSPALSH_API_KEY });
 
@@ -41,12 +43,13 @@ const transformCoffeeData = (
   };
 };
 
-export const fetchCoffeeStores = async (): Promise<Array<CoffeeStoreType>> => {
+const TORONTO_LONG_LAT = "-79.3789680885594%2C43.653833032607096";
+export const fetchCoffeeStores = async (
+  latLong = TORONTO_LONG_LAT
+): Promise<Array<CoffeeStoreType>> => {
   try {
-    const TORONTO_LONG_LAT = "-79.3789680885594%2C43.653833032607096";
     const limit = 6;
-
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/coffee.json?limit=${limit}&proximity=${TORONTO_LONG_LAT}&access_token=${MAPBOX_API_KEY}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/coffee.json?limit=${limit}&proximity=${latLong}&access_token=${MAPBOX_API_KEY}`;
     const response = await fetch(url);
     const mapboxData = await response.json();
     const photos = await getListOfCoffeeStorePhotos();
