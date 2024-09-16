@@ -45,10 +45,10 @@ const transformCoffeeData = (
 
 const TORONTO_LONG_LAT = "-79.3789680885594%2C43.653833032607096";
 export const fetchCoffeeStores = async (
-  latLong = TORONTO_LONG_LAT
+  latLong = TORONTO_LONG_LAT,
+  limit = 6
 ): Promise<Array<CoffeeStoreType>> => {
   try {
-    const limit = 6;
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/coffee.json?limit=${limit}&proximity=${latLong}&access_token=${MAPBOX_API_KEY}`;
     const response = await fetch(url);
     const mapboxData = await response.json();
