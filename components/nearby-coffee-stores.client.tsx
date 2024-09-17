@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react";
 
 import useTrackLocation from "@/hooks/use-track-location";
-import { fetchCoffeeStores } from "@/lib/coffee-stores";
 import { CoffeeStoreType } from "@/types";
 
 import Banner from "./banner.client";
-import Cards from "./cards.server";
+import CoffeeStores from "./coffee-stores";
 
 export default function NearbyCoffeeStores() {
   const { handleTrackLocation, isFindingLocation, longLat, locationErrorMsg } =
@@ -18,8 +17,16 @@ export default function NearbyCoffeeStores() {
   useEffect(() => {
     const getCoffeeStores = async () => {
       if (!longLat) return;
-      const coffeeStores = await fetchCoffeeStores(longLat);
-      setCoffeeStores(coffeeStores);
+      const limit = 10;
+      const coffeeStoresApi = `/api/get-coffee-stores-by-location`;
+      const url = `${coffeeStoresApi}?latLong=${longLat}&limit=${limit}`;
+      try {
+        const response = await fetch(url);
+        const coffeeStores: Array<CoffeeStoreType> = await response.json();
+        setCoffeeStores(coffeeStores);
+      } catch (err) {
+        console.error("Error while fetching coffee stores", err);
+      }
     };
     getCoffeeStores();
   }, [longLat]);
@@ -33,12 +40,9 @@ export default function NearbyCoffeeStores() {
     <div>
       <Banner storesNearbyButtonProps={storesNearbyButtonProps} />
       {locationErrorMsg && <p>Error: {locationErrorMsg}</p>}
-      <div className="mt-20">
-        <h2 className="mt-8 pb-8 text-4xl font-bold text-white">
-          Stores near me
-        </h2>
-        {coffeeStores.length && <Cards stores={coffeeStores} />}
-      </div>
+      {coffeeStores.length > 0 && (
+        <CoffeeStores title="Stores near me" stores={coffeeStores} />
+      )}
     </div>
   );
 }

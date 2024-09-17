@@ -1,6 +1,9 @@
 import { fetchCoffeeStores } from "@/lib/coffee-stores";
 import { NextRequest, NextResponse } from "next/server";
 
+// force the function to be deployed as a serverless function (SSR)
+export const dynamic = "force-dynamic";
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
