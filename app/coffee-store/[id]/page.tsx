@@ -2,10 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { fetchCoffeeStore, fetchCoffeeStores } from "@/lib/coffee-stores";
+import { findRecordById } from "@/lib/airtable";
 
 export async function generateStaticParams() {
   const coffeeStores = await fetchCoffeeStores();
   return coffeeStores.map(({ id }) => ({ id }));
+}
+
+async function getData(id: string) {
+  const coffeeStore = await fetchCoffeeStore(id);
+  const coffeeRecord = await findRecordById(id);
+  console.log(coffeeRecord);
+  return { coffeeStore };
 }
 
 type PageProps = {
@@ -14,9 +22,9 @@ type PageProps = {
 
 export default async function Page(props: PageProps) {
   const { id } = props.params;
-  const coffeeStore = await fetchCoffeeStore(id);
+  const { coffeeStore } = await getData(id);
   const { name = "", address = "", imgUrl = "" } = coffeeStore || {};
-  console.log(coffeeStore);
+  // console.log(coffeeStore);
 
   return (
     <div className="h-full pb-80">

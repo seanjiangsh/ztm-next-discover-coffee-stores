@@ -9,4 +9,5 @@ export type CoffeeStoreType = {
   name: string;
   imgUrl: string;
   address: string;
+  voting: number;
 };
