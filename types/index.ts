@@ -11,3 +11,9 @@ export type CoffeeStoreType = {
   address: string;
   voting: number;
 };
+
+export type AirtableRecordType = {
+  id: string;
+  recordId: string;
+  fields: CoffeeStoreType;
+};

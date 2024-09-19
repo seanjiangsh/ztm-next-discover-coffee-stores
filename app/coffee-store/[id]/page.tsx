@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { fetchCoffeeStore, fetchCoffeeStores } from "@/lib/coffee-stores";
-import { findRecordById } from "@/lib/airtable";
+import { createCoffeeStore } from "@/lib/airtable";
+import { CoffeeStoreType } from "@/types";
 
 export async function generateStaticParams() {
   const coffeeStores = await fetchCoffeeStores();
@@ -11,9 +12,10 @@ export async function generateStaticParams() {
 
 async function getData(id: string) {
   const coffeeStore = await fetchCoffeeStore(id);
-  const coffeeRecord = await findRecordById(id);
-  console.log(coffeeRecord);
-  return { coffeeStore };
+  if (!coffeeStore) return;
+  const coffeeStoreRecord = await createCoffeeStore(coffeeStore);
+  // console.log(coffeeStoreRecord);
+  return coffeeStoreRecord;
 }
 
 type PageProps = {
@@ -22,8 +24,8 @@ type PageProps = {
 
 export default async function Page(props: PageProps) {
   const { id } = props.params;
-  const { coffeeStore } = await getData(id);
-  const { name = "", address = "", imgUrl = "" } = coffeeStore || {};
+  const coffeeStoreRecord = await getData(id);
+  const { name = "", address = "", imgUrl = "" } = coffeeStoreRecord?.[0] || {};
   // console.log(coffeeStore);
 
   return (
