@@ -3,7 +3,8 @@ import Image from "next/image";
 
 import { fetchCoffeeStore, fetchCoffeeStores } from "@/lib/coffee-stores";
 import { createCoffeeStore } from "@/lib/airtable";
-import { CoffeeStoreType } from "@/types";
+
+import Upvote from "@/components/upvote.client";
 
 export async function generateStaticParams() {
   const coffeeStores = await fetchCoffeeStores();
@@ -25,7 +26,12 @@ type PageProps = {
 export default async function Page(props: PageProps) {
   const { id } = props.params;
   const coffeeStoreRecord = await getData(id);
-  const { name = "", address = "", imgUrl = "" } = coffeeStoreRecord?.[0] || {};
+  const {
+    name = "",
+    address = "",
+    imgUrl = "",
+    voting = 0,
+  } = coffeeStoreRecord?.[0] || {};
   // console.log(coffeeStore);
 
   return (
@@ -59,6 +65,7 @@ export default async function Page(props: PageProps) {
               <p className="pl-2">{address}</p>
             </div>
           )}
+          <Upvote voting={voting} />
         </div>
       </div>
     </div>

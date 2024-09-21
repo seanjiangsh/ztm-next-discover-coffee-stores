@@ -1,13 +1,15 @@
-import { AirtableRecordType, CoffeeStoreType } from "@/types";
+import { CoffeeStoreType } from "@/types";
 import Airtable, { Records } from "airtable";
 
-const { AIRTABLE_ACCESS_TOKEN } = process.env;
+const { AIRTABLE_ACCESS_TOKEN, AIRTABLE_BASE_ID } = process.env;
 
-if (!AIRTABLE_ACCESS_TOKEN) {
+if (!AIRTABLE_ACCESS_TOKEN)
   throw new Error("Missing environment variable: AIRTABLE_ACCESS_TOKEN");
-}
-const baseId = "appSVZCnqcZV6tneE";
-const base = new Airtable({ apiKey: AIRTABLE_ACCESS_TOKEN }).base(baseId);
+if (!AIRTABLE_BASE_ID)
+  throw new Error("Missing environment variable: AIRTABLE_BASE_ID");
+
+const apiKey = AIRTABLE_ACCESS_TOKEN;
+const base = new Airtable({ apiKey }).base(AIRTABLE_BASE_ID);
 const table = base<CoffeeStoreType>("coffee-stores");
 
 const getMinifiedRecords = (records: Records<CoffeeStoreType>) =>
