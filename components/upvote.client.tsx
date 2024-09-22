@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 
+import { upvoteAction } from "@/actions";
+
 type UpvoteProps = {
   voting: number;
 };
@@ -13,7 +15,7 @@ export default function Upvote(props: UpvoteProps) {
   };
 
   return (
-    <>
+    <form action={upvoteAction}>
       <div className="mb-6 flex">
         <Image
           src="/static/icons/star.svg"
@@ -23,7 +25,7 @@ export default function Upvote(props: UpvoteProps) {
         />
         <p className="pl-2">{voting}</p>
       </div>
-      <button onClick={handleOnClick}>Up vote!</button>
-    </>
+      <button type="submit">Up vote!</button>
+    </form>
   );
 }
