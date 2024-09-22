@@ -4,18 +4,19 @@ import Image from "next/image";
 import { upvoteAction } from "@/actions";
 
 type UpvoteProps = {
+  id: string;
   voting: number;
 };
 
 export default function Upvote(props: UpvoteProps) {
-  const { voting } = props;
+  const { id, voting } = props;
 
   const handleOnClick = () => {
     console.log("Upvote clicked");
   };
 
   return (
-    <form action={upvoteAction}>
+    <form action={() => upvoteAction(id)}>
       <div className="mb-6 flex">
         <Image
           src="/static/icons/star.svg"
