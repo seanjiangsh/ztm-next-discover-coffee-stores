@@ -2,7 +2,13 @@
 
 import { updateCoffeeStore } from "@/lib/airtable";
 
-export const upvoteAction = async (id: string) => {
+export type UpvoteState = { id: string; voting: number };
+
+export const upvoteAction = async (
+  state: UpvoteState
+): Promise<UpvoteState> => {
+  const { id } = state;
   const updatedData = await updateCoffeeStore(id);
-  console.log({ upvoteAction: updatedData });
+  const voting = updatedData?.[0]?.voting || 0;
+  return { id, voting };
 };
