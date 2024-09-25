@@ -54,9 +54,10 @@ export const fetchCoffeeStores = async (
     const mapboxData = await response.json();
     const photos = await getListOfCoffeeStorePhotos();
     // console.log(JSON.stringify(mapboxData, null, 2));
-    return mapboxData.features.map((data: MapboxType, idx: number) =>
-      transformCoffeeData(idx, data, photos)
+    const coffeeStoresData = mapboxData?.features?.map(
+      (data: MapboxType, idx: number) => transformCoffeeData(idx, data, photos)
     );
+    return coffeeStoresData || [];
   } catch (err) {
     console.error("Error while fetching coffee stores", err);
     return [];
@@ -71,7 +72,7 @@ export const fetchCoffeeStore = async (
     const response = await fetch(url);
     const mapboxData = await response.json();
     // console.log(JSON.stringify(data, null, 2));
-    const coffeeStore = mapboxData.features.map(
+    const coffeeStore = mapboxData?.features?.map(
       (data: MapboxType, idx: number) => transformCoffeeData(idx, data, [])
     );
     return coffeeStore.length ? coffeeStore[0] : null;
