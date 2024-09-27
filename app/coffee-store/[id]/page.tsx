@@ -3,12 +3,37 @@ import Image from "next/image";
 
 import { fetchCoffeeStore, fetchCoffeeStores } from "@/lib/coffee-stores";
 import { createCoffeeStore } from "@/lib/airtable";
+import { getDomain } from "@/utils";
+import { ServerParamsType } from "@/types";
 
 import Upvote from "@/components/upvote.client";
 
+/**
+ * The generateStaticParams function can be used in combination with
+ * `dynamic route segments` to `statically generate` routes at build time
+ * instead of on-demand at request time.
+ */
 export async function generateStaticParams() {
   const coffeeStores = await fetchCoffeeStores();
   return coffeeStores.map(({ id }) => ({ id }));
+}
+
+/**
+ * The generateMetadata function allows you to fetch and
+ * generate metadata dynamically.This is especially useful for improving SEO
+ * and web shareability by customizing meta tags like title, description,
+ * and Open Graph tags based on the content of the page.
+ */
+export async function generateMetadata(params: ServerParamsType) {
+  const { id } = params.params;
+  const coffeeStore = await fetchCoffeeStore(id);
+  const { name = "" } = coffeeStore || {};
+  return {
+    title: name,
+    description: `${name} - Coffee Store`,
+    metadataBase: getDomain(),
+    alternates: { canonical: `/coffee-store/${id}` },
+  };
 }
 
 async function getData(id: string) {
