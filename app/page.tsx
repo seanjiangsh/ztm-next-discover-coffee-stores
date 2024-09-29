@@ -17,8 +17,8 @@ export default async function Home() {
   // console.log(coffeeStores);
 
   return (
-    <div className="mb-56">
-      <main className="mx-auto mt-10 max-w-6xl px-4">
+    <div className="min-h-screen flex flex-col pb-56 relative">
+      <main className="flex-grow mx-auto mt-10 max-w-6xl px-4">
         <NearbyCoffeeStores />
         <CoffeeStores title="Toronto Stores" stores={coffeeStores} />
       </main>

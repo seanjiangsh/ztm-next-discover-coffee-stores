@@ -25,7 +25,7 @@ export default function Card(props: CardProps) {
             src={imgUrl}
             layout="fill"
             objectFit="cover"
-            alt={"Coffee Store Image"}
+            alt="Coffee Store Image"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8/+ZNPQAIoQM4xp5zkgAAAABJRU5ErkJggg=="
             placeholder="blur"
           />

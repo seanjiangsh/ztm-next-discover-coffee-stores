@@ -9,7 +9,12 @@
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    @apply bg-gradient bg-cover bg-[50%] bg-repeat h-full;
+    @apply relative bg-gradient bg-cover bg-[50%] bg-repeat;
+  }
+
+  body::before {
+    content: "";
+    @apply absolute inset-0 bg-black opacity-20;
   }
 
   h1 {
