@@ -12,7 +12,7 @@ const config: Config = {
         sans: ["var(--font-ibm-plex-sans)"],
       },
       backgroundImage: {
-        gradient: "url('/static/background.png')",
+        gradient: "url('/static/background.webp')",
       },
       colors: {
         purple: {
