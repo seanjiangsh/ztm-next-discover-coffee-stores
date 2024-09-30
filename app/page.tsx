@@ -1,9 +1,11 @@
+import { useEffect } from "react";
+import { Metadata } from "next";
+
 import { fetchCoffeeStores } from "@/lib/coffee-stores";
+import { getDomain } from "@/utils";
 
 import NearbyCoffeeStores from "@/components/nearby-coffee-stores.client";
 import CoffeeStores from "@/components/coffee-stores";
-import { Metadata } from "next";
-import { getDomain } from "@/utils";
 
 export const metadata: Metadata = {
   title: "Coffee Connoisseur",

@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import useTrackLocation from "@/hooks/use-track-location";
 import { CoffeeStoreType } from "@/types";
-
 import Banner from "./banner.client";
 import CoffeeStores from "./coffee-stores";
 
@@ -13,6 +11,14 @@ export default function NearbyCoffeeStores() {
     useTrackLocation();
 
   const [coffeeStores, setCoffeeStores] = useState<Array<CoffeeStoreType>>([]);
+
+  useEffect(() => {
+    // Retrieve coffee stores from local storage on mount
+    const storedCoffeeStores = localStorage.getItem("coffeeStores");
+    if (storedCoffeeStores) {
+      setCoffeeStores(JSON.parse(storedCoffeeStores));
+    }
+  }, []);
 
   useEffect(() => {
     const getCoffeeStores = async () => {
@@ -24,6 +30,8 @@ export default function NearbyCoffeeStores() {
         const response = await fetch(url);
         const coffeeStores: Array<CoffeeStoreType> = await response.json();
         setCoffeeStores(coffeeStores);
+        // Store coffee stores in local storage
+        localStorage.setItem("coffeeStores", JSON.stringify(coffeeStores));
       } catch (err) {
         console.error("Error while fetching coffee stores", err);
       }
