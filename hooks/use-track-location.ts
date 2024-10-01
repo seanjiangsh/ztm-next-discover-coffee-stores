@@ -29,6 +29,7 @@ const useTrackLocation = () => {
   }
 
   const handleTrackLocation = () => {
+    setLongLat("");
     if (!navigator.geolocation) {
       console.log("Geolocation is not supported by your browser");
       setLocationErrorMsg("Geolocation is not supported by your browser");

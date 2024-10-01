@@ -1,5 +1,3 @@
-import React from "react";
-
 import Cards from "./cards.server";
 import { CoffeeStoreType } from "@/types";
 

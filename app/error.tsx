@@ -14,9 +14,11 @@ export default function Error(props: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="m-12 bg-gray-700 p-12 text-white rounded">
-      <h2 className="text-3xl pb-8">Oops, something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
+    <div className="min-h-screen flex relative">
+      <div className="m-auto max-w-[80%] bg-gray-700 p-12 text-white rounded">
+        <h2 className="text-3xl pb-8">Oops, something went wrong!</h2>
+        <button onClick={() => reset()}>Try again</button>
+      </div>
     </div>
   );
 }
