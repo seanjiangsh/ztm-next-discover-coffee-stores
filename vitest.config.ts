@@ -4,9 +4,8 @@ import react from "@vitejs/plugin-react";
 import dotenv from "dotenv";
 
 const isTest = process.env.NODE_ENV === "test";
-const isCI = process.env.CI === "true";
 
-if (isTest && !isCI) dotenv.config({ path: "env-for-test" });
+if (isTest) dotenv.config({ path: "env-for-test" });
 
 export default defineConfig({
   plugins: [react()],
