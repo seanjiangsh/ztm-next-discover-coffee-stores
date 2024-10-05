@@ -3,7 +3,7 @@
 
 import { useEffect } from "react";
 
-type ErrorProps = { error: Error; reset: () => void };
+export type ErrorProps = { error: Error; reset: () => void };
 
 export default function Error(props: ErrorProps) {
   const { error, reset } = props;
