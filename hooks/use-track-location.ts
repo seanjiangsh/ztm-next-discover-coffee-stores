@@ -6,7 +6,7 @@ type PositionType = {
   coords: { latitude: number; longitude: number };
 };
 
-const useTrackLocation = () => {
+export const useTrackLocation = () => {
   const [isFindingLocation, setIsFindingLocation] = useState(false);
   const [longLat, setLongLat] = useState("");
   const [locationErrorMsg, setLocationErrorMsg] = useState("");
@@ -48,5 +48,3 @@ const useTrackLocation = () => {
     locationErrorMsg,
   };
 };
-
-export default useTrackLocation;

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import useTrackLocation from "@/hooks/use-track-location";
+import { useTrackLocation } from "@/hooks/use-track-location";
 import { CoffeeStoreType } from "@/types";
 
 import Banner from "./banner.client";

@@ -10,7 +10,7 @@ if (!AIRTABLE_BASE_ID)
 
 const apiKey = AIRTABLE_ACCESS_TOKEN;
 const base = new Airtable({ apiKey }).base(AIRTABLE_BASE_ID);
-const table = base<CoffeeStoreType>("coffee-stores");
+export const table = base<CoffeeStoreType>("coffee-stores");
 
 const getMinifiedRecords = (records: Records<CoffeeStoreType>) =>
   records.map(({ id, fields }) => ({ recordId: id, ...fields }));
