@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
-
 import { table, createCoffeeStore, updateCoffeeStore } from "@/lib/airtable";
-import { AirtableRecordType, CoffeeStoreType } from "@/types";
+import { CoffeeStoreType } from "@/types";
 
 vi.mock("airtable", async () => {
   return {
@@ -59,7 +58,6 @@ describe("createCoffeeStore", () => {
       voting: 0,
     };
 
-    // Mock the select function to return a record
     const selectResults = [
       {
         id: "testRecordId",
@@ -74,10 +72,7 @@ describe("createCoffeeStore", () => {
       .spyOn(table, "select")
       .mockImplementation(() => firstPageImpl);
 
-    // Mock the create function to not be called
     const createSpy = vi.spyOn(table, "create");
-
-    // Mock the console.log to check log message
     const consoleLogSpy = vi.spyOn(console, "log");
 
     const result = await createCoffeeStore(coffeeStore);
@@ -98,7 +93,6 @@ describe("createCoffeeStore", () => {
       voting: 0,
     };
 
-    // Mock the console.error to check log message
     const consoleErrorSpy = vi.spyOn(console, "error");
 
     await createCoffeeStore(coffeeStore);
@@ -114,13 +108,94 @@ describe("createCoffeeStore", () => {
       voting: 0,
     };
 
-    // Mock the select function to throw an error
     const selectSpy = vi.spyOn(table, "select").mockRejectedValue("Error");
-
-    // Mock the console.error to check log message
     const consoleErrorSpy = vi.spyOn(console, "error");
 
     await createCoffeeStore(coffeeStore);
+    expect(selectSpy).toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error creating or finding a store",
+      expect.any(Error)
+    );
+  });
+});
+
+describe("updateCoffeeStore", () => {
+  it("should update the voting of an existing coffee store", async () => {
+    const coffeeStore: CoffeeStoreType = {
+      id: "1",
+      name: "Test Store",
+      address: "123 Test St",
+      imgUrl: "http://test.com/image.jpg",
+      voting: 0,
+    };
+
+    const selectResults = [
+      {
+        id: "testRecordId",
+        recordId: "rec123",
+        fields: coffeeStore,
+      },
+    ];
+    const firstPageImpl = {
+      firstPage: vi.fn().mockResolvedValue(selectResults),
+    } as any;
+    const selectSpy = vi
+      .spyOn(table, "select")
+      .mockImplementation(() => firstPageImpl);
+
+    const updateResults = [
+      {
+        id: "testRecordId",
+        recordId: "rec123",
+        fields: { ...coffeeStore, voting: 1 },
+      },
+    ] as any;
+    const updateSpy = vi
+      .spyOn(table, "update")
+      .mockResolvedValue(updateResults);
+
+    const result = await updateCoffeeStore("1");
+    expect(selectSpy).toHaveBeenCalled();
+    expect(updateSpy).toHaveBeenCalledWith([
+      { id: "testRecordId", fields: { voting: 1 } },
+    ]);
+
+    const expectedResults = [
+      { recordId: "testRecordId", ...coffeeStore, voting: 1 },
+    ];
+    expect(result).toEqual(expectedResults);
+  });
+
+  it('should return "Coffee store does not exists" if the store does not exist', async () => {
+    const firstPageImpl = {
+      firstPage: vi.fn().mockResolvedValue([]),
+    } as any;
+    const selectSpy = vi
+      .spyOn(table, "select")
+      .mockImplementation(() => firstPageImpl);
+
+    const updateSpy = vi.spyOn(table, "update");
+    const consoleLogSpy = vi.spyOn(console, "log");
+
+    await updateCoffeeStore("1");
+    expect(selectSpy).toHaveBeenCalled();
+    expect(updateSpy).not.toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalledWith("Coffee store does not exists");
+  });
+
+  it("should return an error if store id is missing", async () => {
+    const consoleErrorSpy = vi.spyOn(console, "error");
+
+    await updateCoffeeStore("");
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Store id is missing");
+  });
+
+  it("should return an error if an error occurs", async () => {
+    const selectSpy = vi.spyOn(table, "select").mockRejectedValue("Error");
+    const consoleErrorSpy = vi.spyOn(console, "error");
+
+    await updateCoffeeStore("1");
     expect(selectSpy).toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error creating or finding a store",
