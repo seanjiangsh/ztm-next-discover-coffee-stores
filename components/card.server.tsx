@@ -15,9 +15,9 @@ export default function Card(props: CardProps) {
         className={`glass min-h-[200px] rounded-xl px-5 pb-5 pt-1 backdrop-blur-3xl`}
       >
         <div className="my-3">
-          <h2 className="w-64 overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
+          <h3 className="w-64 overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
             {name}
-          </h2>
+          </h3>
         </div>
         <div className="relative w-full h-48">
           <Image

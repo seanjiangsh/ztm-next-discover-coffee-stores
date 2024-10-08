@@ -13,10 +13,6 @@ export const handlers = [
         voting: 0,
       },
     ];
-    console.log("MSW route hit", {
-      url: "/api/get-coffee-stores-by-location",
-      response: coffeeStores,
-    });
     return HttpResponse.json(coffeeStores);
   }),
 ];

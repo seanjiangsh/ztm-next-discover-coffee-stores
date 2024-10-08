@@ -19,6 +19,10 @@ const getListOfCoffeeStorePhotos = async (): Promise<Array<string>> => {
       perPage: 6,
       orientation: "landscape",
     });
+    // console.log(
+    //   "getListOfCoffeeStorePhotos",
+    //   JSON.stringify(response, null, 2)
+    // );
     if (!response) return [];
     return response.results.map((result) => result.urls["small"]);
   } catch (error) {
