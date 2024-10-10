@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
-describe("Environment Variables", () => {
+describe("Airtable utils environment variables", () => {
   beforeEach(() => {
     vi.unstubAllEnvs();
     vi.resetModules();

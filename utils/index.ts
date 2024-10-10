@@ -1,6 +1,6 @@
 const { ORIGIN } = process.env;
 
 if (!ORIGIN) {
-  throw new Error("Missing ORIGIN environment variables");
+  throw new Error("Missing environment variable: ORIGIN");
 }
 export const getDomain = () => new URL(ORIGIN);

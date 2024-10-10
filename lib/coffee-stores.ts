@@ -4,9 +4,11 @@ import { MapboxType, CoffeeStoreType } from "@/types";
 
 const { MAPBOX_API_KEY, UNSPALSH_API_KEY } = process.env;
 
-if (!MAPBOX_API_KEY || !UNSPALSH_API_KEY) {
-  console.log({ MAPBOX_API_KEY, UNSPALSH_API_KEY });
-  throw new Error("Missing environment variables");
+if (!MAPBOX_API_KEY) {
+  throw new Error("Missing environment variable: MAPBOX_API_KEY");
+}
+if (!UNSPALSH_API_KEY) {
+  throw new Error("Missing environment variable: UNSPALSH_API_KEY");
 }
 
 const unsplashApi = createApi({ accessKey: UNSPALSH_API_KEY });
