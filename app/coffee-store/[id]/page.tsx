@@ -36,11 +36,12 @@ export async function generateMetadata(params: ServerParamsType) {
   };
 }
 
-async function getData(id: string) {
+export async function getData(id: string) {
   const coffeeStore = await fetchCoffeeStore(id);
+  // console.log("getData", { coffeeStore });
   if (!coffeeStore) return;
   const coffeeStoreRecord = await createCoffeeStore(coffeeStore);
-  // console.log(coffeeStoreRecord);
+  // console.log("getData", { coffeeStoreRecord });
   return coffeeStoreRecord;
 }
 
@@ -51,13 +52,13 @@ type PageProps = {
 export default async function Page(props: PageProps) {
   const { id } = props.params;
   const coffeeStoreRecord = await getData(id);
+  // console.log("Page", { coffeeStoreRecord });
   const {
     name = "",
     address = "",
     imgUrl = "",
     voting = 0,
   } = coffeeStoreRecord?.[0] || {};
-  // console.log(coffeeStore);
 
   return (
     <div className="min-h-screen flex flex-col relative">
