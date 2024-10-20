@@ -8,9 +8,7 @@ import { getDomain } from "@/utils";
 import Page, {
   generateStaticParams,
   generateMetadata,
-  getData,
 } from "@/app/coffee-store/[id]/page";
-// import * as coffeeStorePage from "@/app/coffee-store/[id]/page";
 
 vi.mock("react-dom", () => ({
   useFormState: vi.fn(),
@@ -29,26 +27,6 @@ vi.mock("@/lib/airtable", () => ({
 vi.mock("@/utils", () => ({
   getDomain: vi.fn(),
 }));
-
-// vi.mock("@/app/coffee-store/[id]/page", async (importOriginal) => {
-//   const page: any = await importOriginal();
-//   return {
-//     ...page,
-//     getData: vi.fn().mockImplementation(async (id: string) => {
-//       console.log("mock getData", id);
-//       return [
-//         {
-//           id: "1",
-//           recordId: "rec123",
-//           name: "Test Store",
-//           address: "123 Test St",
-//           imgUrl: "/test.jpg",
-//           voting: 5,
-//         },
-//       ];
-//     }),
-//   };
-// });
 
 describe("Page Component", () => {
   const mockCoffeeStore = {

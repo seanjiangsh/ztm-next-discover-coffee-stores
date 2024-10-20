@@ -36,7 +36,7 @@ export async function generateMetadata(params: ServerParamsType) {
   };
 }
 
-export async function getData(id: string) {
+async function getData(id: string) {
   const coffeeStore = await fetchCoffeeStore(id);
   // console.log("getData", { coffeeStore });
   if (!coffeeStore) return;
